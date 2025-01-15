@@ -37,7 +37,7 @@
             // 
             this.labelNombreApp.AutoSize = true;
             this.labelNombreApp.Font = new System.Drawing.Font("Yu Gothic UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelNombreApp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(100)))));
+            this.labelNombreApp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.labelNombreApp.Location = new System.Drawing.Point(114, 13);
             this.labelNombreApp.Name = "labelNombreApp";
             this.labelNombreApp.Size = new System.Drawing.Size(172, 37);
@@ -48,9 +48,9 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::AppEscritorioRetoDAM.Properties.Resources.logoEuskoTrafico;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox1.Location = new System.Drawing.Point(38, 13);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(105, 56);
+            this.pictureBox1.Size = new System.Drawing.Size(70, 37);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;

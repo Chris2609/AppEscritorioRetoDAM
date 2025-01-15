@@ -123,6 +123,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AvisoUsuarioCreado.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AvisoUsuarioCreado.Designer.cs">
+      <DependentUpon>AvisoUsuarioCreado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LoginComponente.cs">
@@ -138,6 +144,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AvisoUsuarioCreado.resx">
+      <DependentUpon>AvisoUsuarioCreado.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginComponente.resx">
       <DependentUpon>LoginComponente.cs</DependentUpon>
     </EmbeddedResource>
