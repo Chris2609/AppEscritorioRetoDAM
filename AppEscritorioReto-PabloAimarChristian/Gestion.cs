@@ -98,14 +98,14 @@ namespace AppEscritorioReto_PabloAimarChristian
             if (aviso != null)
             {
                 int originalX = aviso.Location.X;
-                int targetX = originalX - 400; // Mover 400 píxeles a la izquierda
+                int targetX = originalX - 300; // Mover 400 píxeles a la izquierda
                 int duration = 500; // Duración de la animación en milisegundos
                 int steps = 20; // Número de pasos en la animación
                 int delay = duration / steps;
 
                 for (int i = 0; i < steps; i++)
                 {
-                    aviso.Location = new Point(aviso.Location.X - (400 / steps), aviso.Location.Y);
+                    aviso.Location = new Point(aviso.Location.X - (300 / steps), aviso.Location.Y);
                     await Task.Delay(delay);
                 }
 
@@ -113,7 +113,7 @@ namespace AppEscritorioReto_PabloAimarChristian
 
                 for (int i = 0; i < steps; i++)
                 {
-                    aviso.Location = new Point(aviso.Location.X + (400 / steps), aviso.Location.Y);
+                    aviso.Location = new Point(aviso.Location.X + (300 / steps), aviso.Location.Y);
                     await Task.Delay(delay);
                 }
 

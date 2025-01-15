@@ -43,7 +43,7 @@
             this.inputUsuario.BackColor = System.Drawing.Color.LimeGreen;
             this.inputUsuario.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.inputUsuario.Depth = 0;
-            this.inputUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.inputUsuario.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.inputUsuario.Hint = "Usuario";
             this.inputUsuario.LeadingIcon = null;
             this.inputUsuario.Location = new System.Drawing.Point(502, 198);
@@ -63,7 +63,7 @@
             this.inputContrasena.BackColor = System.Drawing.Color.LimeGreen;
             this.inputContrasena.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.inputContrasena.Depth = 0;
-            this.inputContrasena.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.inputContrasena.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.inputContrasena.Hint = "Contraseña";
             this.inputContrasena.LeadingIcon = null;
             this.inputContrasena.Location = new System.Drawing.Point(502, 257);

@@ -300,11 +300,11 @@
             // 
             // avisoUsuarioCreado
             // 
-            this.avisoUsuarioCreado.BackColor = System.Drawing.Color.LimeGreen;
+            this.avisoUsuarioCreado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(38)))), ((int)(((byte)(38)))));
             this.avisoUsuarioCreado.ForeColor = System.Drawing.Color.White;
-            this.avisoUsuarioCreado.Location = new System.Drawing.Point(799, 6);
+            this.avisoUsuarioCreado.Location = new System.Drawing.Point(796, 9);
             this.avisoUsuarioCreado.Name = "avisoUsuarioCreado";
-            this.avisoUsuarioCreado.Size = new System.Drawing.Size(234, 66);
+            this.avisoUsuarioCreado.Size = new System.Drawing.Size(238, 66);
             this.avisoUsuarioCreado.TabIndex = 8;
             // 
             // Gestion
