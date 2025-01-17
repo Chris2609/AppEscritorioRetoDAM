@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Gestion));
             this.materialTabControl1 = new MaterialSkin.Controls.MaterialTabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.materialTextBoxPassword = new MaterialSkin.Controls.MaterialTextBox();
             this.materialButtonEliminarUsuario = new MaterialSkin.Controls.MaterialButton();
             this.materialTextBoxId = new MaterialSkin.Controls.MaterialTextBox2();
             this.materialListViewUsuarios = new MaterialSkin.Controls.MaterialListView();
@@ -39,13 +40,13 @@
             this.columnNombre = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnAdmin = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.materialCheckboxAdmin = new MaterialSkin.Controls.MaterialCheckbox();
-            this.materialTextBoxPassword = new MaterialSkin.Controls.MaterialTextBox2();
             this.materialTextBoxUsuario = new MaterialSkin.Controls.MaterialTextBox2();
             this.materialButtonGestionUsuarios = new MaterialSkin.Controls.MaterialButton();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.iconos = new System.Windows.Forms.ImageList(this.components);
             this.loginComponente1 = new AppEscritorioRetoDAM.LoginComponente();
             this.avisoUsuarioCreado = new AppEscritorioRetoDAM.AvisoUsuarioCreado();
+            this.avisoUsuarioModificado = new AppEscritorioRetoDAM.AvisoUsuarioModificado();
             this.materialTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.SuspendLayout();
@@ -67,12 +68,13 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.avisoUsuarioModificado);
             this.tabPage1.Controls.Add(this.avisoUsuarioCreado);
+            this.tabPage1.Controls.Add(this.materialTextBoxPassword);
             this.tabPage1.Controls.Add(this.materialButtonEliminarUsuario);
             this.tabPage1.Controls.Add(this.materialTextBoxId);
             this.tabPage1.Controls.Add(this.materialListViewUsuarios);
             this.tabPage1.Controls.Add(this.materialCheckboxAdmin);
-            this.tabPage1.Controls.Add(this.materialTextBoxPassword);
             this.tabPage1.Controls.Add(this.materialTextBoxUsuario);
             this.tabPage1.Controls.Add(this.materialButtonGestionUsuarios);
             this.tabPage1.ImageKey = "iconoGestionUsuarios.png";
@@ -83,6 +85,26 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Usuarios";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // materialTextBoxPassword
+            // 
+            this.materialTextBoxPassword.AnimateReadOnly = false;
+            this.materialTextBoxPassword.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.materialTextBoxPassword.Depth = 0;
+            this.materialTextBoxPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialTextBoxPassword.Hint = "Contraseña";
+            this.materialTextBoxPassword.LeadingIcon = null;
+            this.materialTextBoxPassword.Location = new System.Drawing.Point(376, 170);
+            this.materialTextBoxPassword.MaxLength = 50;
+            this.materialTextBoxPassword.MouseState = MaterialSkin.MouseState.OUT;
+            this.materialTextBoxPassword.Multiline = false;
+            this.materialTextBoxPassword.Name = "materialTextBoxPassword";
+            this.materialTextBoxPassword.Password = true;
+            this.materialTextBoxPassword.Size = new System.Drawing.Size(221, 36);
+            this.materialTextBoxPassword.TabIndex = 9;
+            this.materialTextBoxPassword.Text = "";
+            this.materialTextBoxPassword.TrailingIcon = null;
+            this.materialTextBoxPassword.UseTallSize = false;
             // 
             // materialButtonEliminarUsuario
             // 
@@ -148,13 +170,15 @@
             this.materialListViewUsuarios.Depth = 0;
             this.materialListViewUsuarios.FullRowSelect = true;
             this.materialListViewUsuarios.HideSelection = false;
+            this.materialListViewUsuarios.LabelWrap = false;
             this.materialListViewUsuarios.Location = new System.Drawing.Point(6, 3);
             this.materialListViewUsuarios.MinimumSize = new System.Drawing.Size(200, 100);
             this.materialListViewUsuarios.MouseLocation = new System.Drawing.Point(-1, -1);
             this.materialListViewUsuarios.MouseState = MaterialSkin.MouseState.OUT;
+            this.materialListViewUsuarios.MultiSelect = false;
             this.materialListViewUsuarios.Name = "materialListViewUsuarios";
             this.materialListViewUsuarios.OwnerDraw = true;
-            this.materialListViewUsuarios.Size = new System.Drawing.Size(257, 379);
+            this.materialListViewUsuarios.Size = new System.Drawing.Size(278, 379);
             this.materialListViewUsuarios.TabIndex = 5;
             this.materialListViewUsuarios.UseCompatibleStateImageBehavior = false;
             this.materialListViewUsuarios.View = System.Windows.Forms.View.Details;
@@ -168,7 +192,7 @@
             // columnNombre
             // 
             this.columnNombre.Text = "Nombre";
-            this.columnNombre.Width = 100;
+            this.columnNombre.Width = 121;
             // 
             // columnAdmin
             // 
@@ -179,6 +203,7 @@
             // 
             this.materialCheckboxAdmin.AutoSize = true;
             this.materialCheckboxAdmin.Depth = 0;
+            this.materialCheckboxAdmin.Enabled = false;
             this.materialCheckboxAdmin.Location = new System.Drawing.Point(436, 230);
             this.materialCheckboxAdmin.Margin = new System.Windows.Forms.Padding(0);
             this.materialCheckboxAdmin.MouseLocation = new System.Drawing.Point(-1, -1);
@@ -190,36 +215,6 @@
             this.materialCheckboxAdmin.TabIndex = 4;
             this.materialCheckboxAdmin.Text = "Admin";
             this.materialCheckboxAdmin.UseVisualStyleBackColor = true;
-            // 
-            // materialTextBoxPassword
-            // 
-            this.materialTextBoxPassword.AnimateReadOnly = false;
-            this.materialTextBoxPassword.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.materialTextBoxPassword.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.materialTextBoxPassword.Depth = 0;
-            this.materialTextBoxPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialTextBoxPassword.HideSelection = true;
-            this.materialTextBoxPassword.Hint = "Contraseña";
-            this.materialTextBoxPassword.LeadingIcon = null;
-            this.materialTextBoxPassword.Location = new System.Drawing.Point(376, 170);
-            this.materialTextBoxPassword.MaxLength = 32767;
-            this.materialTextBoxPassword.MouseState = MaterialSkin.MouseState.OUT;
-            this.materialTextBoxPassword.Name = "materialTextBoxPassword";
-            this.materialTextBoxPassword.PasswordChar = '\0';
-            this.materialTextBoxPassword.PrefixSuffixText = null;
-            this.materialTextBoxPassword.ReadOnly = false;
-            this.materialTextBoxPassword.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.materialTextBoxPassword.SelectedText = "";
-            this.materialTextBoxPassword.SelectionLength = 0;
-            this.materialTextBoxPassword.SelectionStart = 0;
-            this.materialTextBoxPassword.ShortcutsEnabled = true;
-            this.materialTextBoxPassword.Size = new System.Drawing.Size(221, 36);
-            this.materialTextBoxPassword.TabIndex = 3;
-            this.materialTextBoxPassword.TabStop = false;
-            this.materialTextBoxPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.materialTextBoxPassword.TrailingIcon = null;
-            this.materialTextBoxPassword.UseSystemPasswordChar = false;
-            this.materialTextBoxPassword.UseTallSize = false;
             // 
             // materialTextBoxUsuario
             // 
@@ -305,7 +300,15 @@
             this.avisoUsuarioCreado.Location = new System.Drawing.Point(796, 9);
             this.avisoUsuarioCreado.Name = "avisoUsuarioCreado";
             this.avisoUsuarioCreado.Size = new System.Drawing.Size(238, 66);
-            this.avisoUsuarioCreado.TabIndex = 8;
+            this.avisoUsuarioCreado.TabIndex = 10;
+            // 
+            // avisoUsuarioModificado
+            // 
+            this.avisoUsuarioModificado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(38)))), ((int)(((byte)(38)))));
+            this.avisoUsuarioModificado.Location = new System.Drawing.Point(796, 9);
+            this.avisoUsuarioModificado.Name = "avisoUsuarioModificado";
+            this.avisoUsuarioModificado.Size = new System.Drawing.Size(278, 66);
+            this.avisoUsuarioModificado.TabIndex = 11;
             // 
             // Gestion
             // 
@@ -336,7 +339,6 @@
         private System.Windows.Forms.ImageList iconos;
         private MaterialSkin.Controls.MaterialButton materialButtonGestionUsuarios;
         private MaterialSkin.Controls.MaterialTextBox2 materialTextBoxUsuario;
-        private MaterialSkin.Controls.MaterialTextBox2 materialTextBoxPassword;
         private MaterialSkin.Controls.MaterialCheckbox materialCheckboxAdmin;
         private MaterialSkin.Controls.MaterialListView materialListViewUsuarios;
         private System.Windows.Forms.ColumnHeader columnId;
@@ -345,6 +347,8 @@
         private MaterialSkin.Controls.MaterialTextBox2 materialTextBoxId;
         private AppEscritorioRetoDAM.LoginComponente loginComponente1;
         private MaterialSkin.Controls.MaterialButton materialButtonEliminarUsuario;
+        private MaterialSkin.Controls.MaterialTextBox materialTextBoxPassword;
+        private AppEscritorioRetoDAM.AvisoUsuarioModificado avisoUsuarioModificado;
         private AppEscritorioRetoDAM.AvisoUsuarioCreado avisoUsuarioCreado;
     }
 }

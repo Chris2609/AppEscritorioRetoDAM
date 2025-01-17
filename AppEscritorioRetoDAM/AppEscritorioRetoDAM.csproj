@@ -129,6 +129,12 @@
     <Compile Include="AvisoUsuarioCreado.Designer.cs">
       <DependentUpon>AvisoUsuarioCreado.cs</DependentUpon>
     </Compile>
+    <Compile Include="AvisoUsuarioModificado.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AvisoUsuarioModificado.Designer.cs">
+      <DependentUpon>AvisoUsuarioModificado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LoginComponente.cs">
@@ -147,6 +153,9 @@
     <EmbeddedResource Include="AvisoUsuarioCreado.resx">
       <DependentUpon>AvisoUsuarioCreado.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AvisoUsuarioModificado.resx">
+      <DependentUpon>AvisoUsuarioModificado.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginComponente.resx">
       <DependentUpon>LoginComponente.cs</DependentUpon>
     </EmbeddedResource>
@@ -162,6 +171,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\okIcono2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\usuarioModIcono.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

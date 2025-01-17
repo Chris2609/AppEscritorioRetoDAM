@@ -87,37 +87,38 @@ namespace AppEscritorioReto_PabloAimarChristian
                     materialTextBoxPassword.Text = "";
                     materialCheckboxAdmin.Checked = false;
                     CargarListViewUsuarios();
-                    MostrarAvisoUsuarioCreado();
+                    MostrarAviso("avisoUsuarioCreado", 300);
                 }
             }
         }
 
-        private async void MostrarAvisoUsuarioCreado()
+        private async void MostrarAviso(string elementoDesplazar, int cantDesplazar)
         {
-            var aviso = this.Controls.Find("avisoUsuarioCreado", true).FirstOrDefault() as Control;
+            var aviso = this.Controls.Find(elementoDesplazar, true).FirstOrDefault() as Control;
             if (aviso != null)
             {
                 int originalX = aviso.Location.X;
-                int targetX = originalX - 300; // Mover 400 píxeles a la izquierda
-                int duration = 500; // Duración de la animación en milisegundos
-                int steps = 20; // Número de pasos en la animación
+                int targetX = originalX - cantDesplazar;
+                int duration = 200;
+                int steps = 60;
                 int delay = duration / steps;
+                int displacementPerStep = cantDesplazar / steps;
 
                 for (int i = 0; i < steps; i++)
                 {
-                    aviso.Location = new Point(aviso.Location.X - (300 / steps), aviso.Location.Y);
+                    aviso.Location = new Point(aviso.Location.X - displacementPerStep, aviso.Location.Y);
                     await Task.Delay(delay);
                 }
 
-                await Task.Delay(2000); // Esperar 2 segundos antes de volver a la posición original
+                await Task.Delay(1000);
 
                 for (int i = 0; i < steps; i++)
                 {
-                    aviso.Location = new Point(aviso.Location.X + (300 / steps), aviso.Location.Y);
+                    aviso.Location = new Point(aviso.Location.X + displacementPerStep, aviso.Location.Y);
                     await Task.Delay(delay);
                 }
 
-                aviso.Location = new Point(originalX, aviso.Location.Y); // Asegurarse de que vuelve a la posición original
+                aviso.Location = new Point(originalX, aviso.Location.Y);
             }
         }
 
@@ -149,7 +150,13 @@ namespace AppEscritorioReto_PabloAimarChristian
 
                 if (response.IsSuccessStatusCode)
                 {
+                    materialTextBoxId.Text = "";
+                    materialTextBoxUsuario.Text = "";
+                    materialTextBoxPassword.Text = "";
+                    materialCheckboxAdmin.Checked = false;
+                    materialButtonGestionUsuarios.Text = "Crear";
                     CargarListViewUsuarios();
+                    MostrarAviso("avisoUsuarioModificado", 400);
                 }
             }
         }
@@ -182,6 +189,7 @@ namespace AppEscritorioReto_PabloAimarChristian
                 materialTextBoxId.Text = "";
                 materialTextBoxUsuario.Text = "";
                 materialCheckboxAdmin.Checked = false;
+                materialTextBoxPassword.Text = "";
                 materialButtonGestionUsuarios.Text = "Crear";
                 materialButtonEliminarUsuario.Enabled = false;
             }
