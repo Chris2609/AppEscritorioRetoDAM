@@ -121,13 +121,16 @@
   <data name="okIcono1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\okIcono2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="usuarioModIcono" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\usuarioModIcono.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="logoEuskoTrafico" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logoEuskoTrafico.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="okIcono" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\okIcono1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="usuarioModIcono" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\usuarioModIcono.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="xIcono" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\xIcono.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

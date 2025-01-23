@@ -29,34 +29,13 @@ namespace AppEscritorioReto_PabloAimarChristian
             this.MaximizeBox = false;
         }
 
-        private void userControl11_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Login_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void loginComponente1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
         private async void btnAcceder_Click(object sender, EventArgs e)
         {
 
             usuario = inputUsuario.Text;
             contrasena = inputContrasena.Text;
 
-            //Gestion gestion = new Gestion();
+            //Gestion gestion = new Gestion(this);
             //gestion.Show();
             //this.Hide();
 
@@ -76,7 +55,7 @@ namespace AppEscritorioReto_PabloAimarChristian
 
                 if (responseString.Trim('"') == "OK")
                 {
-                    Gestion gestion = new Gestion();
+                    Gestion gestion = new Gestion(this);
                     gestion.Show();
                     this.Hide();
                 }
