@@ -123,6 +123,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AvisoIncCreada.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AvisoIncCreada.Designer.cs">
+      <DependentUpon>AvisoIncCreada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AvisoIncEliminada.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AvisoIncEliminada.Designer.cs">
+      <DependentUpon>AvisoIncEliminada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AvisoIncModificada.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AvisoIncModificada.Designer.cs">
+      <DependentUpon>AvisoIncModificada.cs</DependentUpon>
+    </Compile>
     <Compile Include="AvisoUsuarioCreado.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -156,6 +174,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AvisoIncCreada.resx">
+      <DependentUpon>AvisoIncCreada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AvisoIncEliminada.resx">
+      <DependentUpon>AvisoIncEliminada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AvisoIncModificada.resx">
+      <DependentUpon>AvisoIncModificada.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AvisoUsuarioCreado.resx">
       <DependentUpon>AvisoUsuarioCreado.cs</DependentUpon>
     </EmbeddedResource>
@@ -186,6 +213,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\xIcono.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconoIncMod.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

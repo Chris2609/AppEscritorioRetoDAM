@@ -47,6 +47,7 @@
             this.materialTextBoxUsuario = new MaterialSkin.Controls.MaterialTextBox2();
             this.materialButtonGestionUsuarios = new MaterialSkin.Controls.MaterialButton();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.materialLabelFormatoFecha = new MaterialSkin.Controls.MaterialLabel();
             this.materialButtonEliminarInc = new MaterialSkin.Controls.MaterialButton();
             this.materialButtonGestionarInc = new MaterialSkin.Controls.MaterialButton();
             this.materialTextBoxIncFechaFin = new MaterialSkin.Controls.MaterialTextBox2();
@@ -60,6 +61,9 @@
             this.materialTextBoxIncReg = new MaterialSkin.Controls.MaterialTextBox2();
             this.materialTextBoxIncCiudad = new MaterialSkin.Controls.MaterialTextBox2();
             this.materialTextBoxIncId = new MaterialSkin.Controls.MaterialTextBox2();
+            this.avisoIncEliminada = new AppEscritorioRetoDAM.AvisoIncEliminada();
+            this.avisoIncModificada = new AppEscritorioRetoDAM.AvisoIncModificada();
+            this.avisoIncCreada = new AppEscritorioRetoDAM.AvisoIncCreada();
             this.materialListViewIncidencias = new MaterialSkin.Controls.MaterialListView();
             this.columnIncId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnIncAutonomousRegion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -73,8 +77,9 @@
             this.columnEndDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnIncSourceId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.iconos = new System.Windows.Forms.ImageList(this.components);
-            this.loginComponente1 = new AppEscritorioRetoDAM.LoginComponente();
             this.buttomLogOut = new System.Windows.Forms.Button();
+            this.loginComponente1 = new AppEscritorioRetoDAM.LoginComponente();
+            this.buttonAbrirMapa = new System.Windows.Forms.Button();
             this.materialTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -335,6 +340,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.buttonAbrirMapa);
+            this.tabPage2.Controls.Add(this.materialLabelFormatoFecha);
             this.tabPage2.Controls.Add(this.materialButtonEliminarInc);
             this.tabPage2.Controls.Add(this.materialButtonGestionarInc);
             this.tabPage2.Controls.Add(this.materialTextBoxIncFechaFin);
@@ -348,6 +355,9 @@
             this.tabPage2.Controls.Add(this.materialTextBoxIncReg);
             this.tabPage2.Controls.Add(this.materialTextBoxIncCiudad);
             this.tabPage2.Controls.Add(this.materialTextBoxIncId);
+            this.tabPage2.Controls.Add(this.avisoIncEliminada);
+            this.tabPage2.Controls.Add(this.avisoIncModificada);
+            this.tabPage2.Controls.Add(this.avisoIncCreada);
             this.tabPage2.Controls.Add(this.materialListViewIncidencias);
             this.tabPage2.ImageKey = "iconoGestionarIncidencias.png";
             this.tabPage2.Location = new System.Drawing.Point(4, 39);
@@ -357,6 +367,20 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Incidencias";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // materialLabelFormatoFecha
+            // 
+            this.materialLabelFormatoFecha.AutoSize = true;
+            this.materialLabelFormatoFecha.Depth = 0;
+            this.materialLabelFormatoFecha.Font = new System.Drawing.Font("Roboto Medium", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabelFormatoFecha.FontType = MaterialSkin.MaterialSkinManager.fontType.Subtitle2;
+            this.materialLabelFormatoFecha.Location = new System.Drawing.Point(456, 357);
+            this.materialLabelFormatoFecha.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabelFormatoFecha.Name = "materialLabelFormatoFecha";
+            this.materialLabelFormatoFecha.Size = new System.Drawing.Size(79, 17);
+            this.materialLabelFormatoFecha.TabIndex = 16;
+            this.materialLabelFormatoFecha.Text = "yyyy-mm-dd";
+            this.materialLabelFormatoFecha.UseAccent = true;
             // 
             // materialButtonEliminarInc
             // 
@@ -724,6 +748,30 @@
             this.materialTextBoxIncId.UseSystemPasswordChar = false;
             this.materialTextBoxIncId.UseTallSize = false;
             // 
+            // avisoIncEliminada
+            // 
+            this.avisoIncEliminada.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(38)))), ((int)(((byte)(38)))));
+            this.avisoIncEliminada.Location = new System.Drawing.Point(837, 9);
+            this.avisoIncEliminada.Name = "avisoIncEliminada";
+            this.avisoIncEliminada.Size = new System.Drawing.Size(259, 66);
+            this.avisoIncEliminada.TabIndex = 15;
+            // 
+            // avisoIncModificada
+            // 
+            this.avisoIncModificada.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(38)))), ((int)(((byte)(38)))));
+            this.avisoIncModificada.Location = new System.Drawing.Point(833, 9);
+            this.avisoIncModificada.Name = "avisoIncModificada";
+            this.avisoIncModificada.Size = new System.Drawing.Size(278, 66);
+            this.avisoIncModificada.TabIndex = 14;
+            // 
+            // avisoIncCreada
+            // 
+            this.avisoIncCreada.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(38)))), ((int)(((byte)(38)))));
+            this.avisoIncCreada.Location = new System.Drawing.Point(796, 9);
+            this.avisoIncCreada.Name = "avisoIncCreada";
+            this.avisoIncCreada.Size = new System.Drawing.Size(238, 66);
+            this.avisoIncCreada.TabIndex = 13;
+            // 
             // materialListViewIncidencias
             // 
             this.materialListViewIncidencias.AutoSizeTable = false;
@@ -818,19 +866,12 @@
             this.iconos.Images.SetKeyName(0, "iconoGestionarIncidencias.png");
             this.iconos.Images.SetKeyName(1, "iconoGestionUsuarios.png");
             // 
-            // loginComponente1
-            // 
-            this.loginComponente1.BackColor = System.Drawing.Color.Transparent;
-            this.loginComponente1.Location = new System.Drawing.Point(466, 13);
-            this.loginComponente1.Name = "loginComponente1";
-            this.loginComponente1.Size = new System.Drawing.Size(284, 50);
-            this.loginComponente1.TabIndex = 1;
-            // 
             // buttomLogOut
             // 
             this.buttomLogOut.BackColor = System.Drawing.Color.Transparent;
             this.buttomLogOut.BackgroundImage = global::AppEscritorioReto_PabloAimarChristian.Properties.Resources.logoutIcono;
             this.buttomLogOut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttomLogOut.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttomLogOut.FlatAppearance.BorderSize = 0;
             this.buttomLogOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttomLogOut.Location = new System.Drawing.Point(757, 24);
@@ -839,6 +880,29 @@
             this.buttomLogOut.TabIndex = 2;
             this.buttomLogOut.UseVisualStyleBackColor = false;
             this.buttomLogOut.Click += new System.EventHandler(this.buttomLogOut_Click);
+            // 
+            // loginComponente1
+            // 
+            this.loginComponente1.BackColor = System.Drawing.Color.Transparent;
+            this.loginComponente1.Location = new System.Drawing.Point(466, 13);
+            this.loginComponente1.Name = "loginComponente1";
+            this.loginComponente1.Size = new System.Drawing.Size(284, 50);
+            this.loginComponente1.TabIndex = 1;
+            // 
+            // buttonAbrirMapa
+            // 
+            this.buttonAbrirMapa.BackColor = System.Drawing.Color.Transparent;
+            this.buttonAbrirMapa.BackgroundImage = global::AppEscritorioReto_PabloAimarChristian.Properties.Resources.logoutIcono;
+            this.buttonAbrirMapa.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonAbrirMapa.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonAbrirMapa.FlatAppearance.BorderSize = 0;
+            this.buttonAbrirMapa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAbrirMapa.Location = new System.Drawing.Point(473, 297);
+            this.buttonAbrirMapa.Name = "buttonAbrirMapa";
+            this.buttonAbrirMapa.Size = new System.Drawing.Size(40, 40);
+            this.buttonAbrirMapa.TabIndex = 3;
+            this.buttonAbrirMapa.UseVisualStyleBackColor = false;
+            this.buttonAbrirMapa.Click += new System.EventHandler(this.buttonAbrirMapa_Click);
             // 
             // Gestion
             // 
@@ -911,5 +975,10 @@
         private MaterialSkin.Controls.MaterialTextBox2 materialTextBoxIncFechaInicio;
         private MaterialSkin.Controls.MaterialButton materialButtonGestionarInc;
         private MaterialSkin.Controls.MaterialButton materialButtonEliminarInc;
+        private AppEscritorioRetoDAM.AvisoIncCreada avisoIncCreada;
+        private AppEscritorioRetoDAM.AvisoIncModificada avisoIncModificada;
+        private AppEscritorioRetoDAM.AvisoIncEliminada avisoIncEliminada;
+        private MaterialSkin.Controls.MaterialLabel materialLabelFormatoFecha;
+        private System.Windows.Forms.Button buttonAbrirMapa;
     }
 }

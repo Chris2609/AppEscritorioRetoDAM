@@ -266,7 +266,7 @@ namespace AppEscritorioReto_PabloAimarChristian
 
                     foreach (var incidencia in incidencias)
                     {
-                        var item = new ListViewItem(new[] { incidencia.Id.ToString(), incidencia.AutonomousRegion, incidencia.CityTown, incidencia.Cause, incidencia.IncidenceType, incidencia.Province, incidencia.Latitude.ToString(), incidencia.Longitude.ToString(), incidencia.StartDate, incidencia.EndDate, incidencia.SourceId.ToString() });
+                        var item = new ListViewItem(new[] { incidencia.Id.ToString(), incidencia.AutonomousRegion, incidencia.CityTown, incidencia.Cause, incidencia.IncidenceType, incidencia.Province, incidencia.Latitude.ToString(), incidencia.Longitude.ToString(), incidencia.StartDate.Replace("T00:00:00", ""), incidencia.EndDate.Replace("T00:00:00", ""), incidencia.SourceId.ToString() });
                         materialListViewIncidencias.Items.Add(item);
                     }
                 }
@@ -367,7 +367,7 @@ namespace AppEscritorioReto_PabloAimarChristian
                     materialButtonGestionarInc.Text = "Crear";
                     materialButtonEliminarInc.Enabled = false;
 
-                    //MostrarAviso("avisoUsuarioEliminado", 360);
+                    MostrarAviso("avisoIncEliminada", 360);
                     CargarListViewIncidencias();
                 }
                 else
@@ -385,7 +385,7 @@ namespace AppEscritorioReto_PabloAimarChristian
             }
             else if (materialButtonGestionarInc.Text == "Modificar")
             {
-                //ModificarIncidencia();
+                ModificarIncidencia();
             }
         }
 
@@ -398,11 +398,11 @@ namespace AppEscritorioReto_PabloAimarChristian
                 Cause = materialTextBoxIncCausa.Text,
                 IncidenceType = materialTextBoxIncTipo.Text,
                 Province = materialTextBoxIncProvincia.Text,
-                Latitude = double.Parse(materialTextBoxIncLat.Text),
-                Longitude = double.Parse(materialTextBoxIncLong.Text),
+                //Latitude = double.Parse(materialTextBoxIncLat.Text, System.Globalization.CultureInfo.InvariantCulture),
+                //Longitude = double.Parse(materialTextBoxIncLong.Text, System.Globalization.CultureInfo.InvariantCulture),
                 StartDate = materialTextBoxIncFechaInicio.Text,
                 EndDate = materialTextBoxIncFechaFin.Text,
-                SourceId = materialComboBoxIncSource.SelectedIndex + 1
+                SourceId = int.Parse(materialComboBoxIncSource.SelectedValue.ToString())
             };
             using (var client = new HttpClient())
             {
@@ -413,15 +413,132 @@ namespace AppEscritorioReto_PabloAimarChristian
                     { "cause", incidencia.Cause },
                     { "incidenceType", incidencia.IncidenceType },
                     { "province", incidencia.Province },
-                    { "latitude", incidencia.Latitude.ToString() },
-                    { "longitude", incidencia.Longitude.ToString() },
-                    { "startDate", incidencia.StartDate },
-                    { "endDate", incidencia.EndDate },
+                    { "latitude", materialTextBoxIncLat.Text.Replace(",", ".") },
+                    { "longitude", materialTextBoxIncLong.Text.Replace(",", ".") },
+                    { "startDate", incidencia.StartDate + "T00:00:00" },
+                    { "endDate", incidencia.EndDate + "T00:00:00" },
                     { "sourceId", incidencia.SourceId.ToString() }
                 };
                 var content = new StringContent(JsonConvert.SerializeObject(values), System.Text.Encoding.UTF8, "application/json");
                 var response = await client.PostAsync("http://10.10.13.246:8080/api/incidences", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseText = await response.Content.ReadAsStringAsync();
+                    if (responseText.Trim('"') == "OK")
+                    {
+                        materialTextBoxIncReg.Text = "";
+                        materialTextBoxIncCiudad.Text = "";
+                        materialTextBoxIncCausa.Text = "";
+                        materialTextBoxIncTipo.Text = "";
+                        materialTextBoxIncProvincia.Text = "";
+                        materialTextBoxIncLat.Text = "";
+                        materialTextBoxIncLong.Text = "";
+                        materialTextBoxIncFechaInicio.Text = "";
+                        materialTextBoxIncFechaFin.Text = "";
+                        materialComboBoxIncSource.SelectedIndex = 0;
+                        materialComboBoxIncSource.Refresh();
+                        CargarListViewIncidencias();
+                        MostrarAviso("avisoIncCreada", 300);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Error al crear la incidencia: " + response.ReasonPhrase);
+                }
             }
+        }
+
+        private void ModificarIncidencia() {
+            var incidencia = new Incidencia
+            {
+                Id = int.Parse(materialTextBoxIncId.Text),
+                AutonomousRegion = materialTextBoxIncReg.Text,
+                CityTown = materialTextBoxIncCiudad.Text,
+                Cause = materialTextBoxIncCausa.Text,
+                IncidenceType = materialTextBoxIncTipo.Text,
+                Province = materialTextBoxIncProvincia.Text,
+                //Latitude = double.Parse(materialTextBoxIncLat.Text, System.Globalization.CultureInfo.InvariantCulture),
+                //Longitude = double.Parse(materialTextBoxIncLong.Text, System.Globalization.CultureInfo.InvariantCulture),
+                StartDate = materialTextBoxIncFechaInicio.Text,
+                EndDate = materialTextBoxIncFechaFin.Text,
+                SourceId = int.Parse(materialComboBoxIncSource.SelectedValue.ToString())
+            };
+            using (var client = new HttpClient())
+            {
+                var values = new Dictionary<string, string>
+                {
+                    { "id", incidencia.Id.ToString() },
+                    { "autonomousRegion", incidencia.AutonomousRegion },
+                    { "cityTown", incidencia.CityTown },
+                    { "cause", incidencia.Cause },
+                    { "incidenceType", incidencia.IncidenceType },
+                    { "province", incidencia.Province },
+                    { "latitude", materialTextBoxIncLat.Text.Replace(",", ".") },
+                    { "longitude", materialTextBoxIncLong.Text.Replace(",", ".") },
+                    { "startDate", incidencia.StartDate + "T00:00:00" },
+                    { "endDate", incidencia.EndDate + "T00:00:00" },
+                    { "sourceId", incidencia.SourceId.ToString() }
+                };
+                var content = new StringContent(JsonConvert.SerializeObject(values), System.Text.Encoding.UTF8, "application/json");
+                var request = new HttpRequestMessage(new HttpMethod("PATCH"), "http://10.10.13.246:8080/api/incidences")
+                {
+                    Content = content
+                };
+                var response = client.SendAsync(request).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    materialTextBoxIncId.Text = "";
+                    materialTextBoxIncReg.Text = "";
+                    materialTextBoxIncCiudad.Text = "";
+                    materialTextBoxIncCausa.Text = "";
+                    materialTextBoxIncTipo.Text = "";
+                    materialTextBoxIncProvincia.Text = "";
+                    materialTextBoxIncLat.Text = "";
+                    materialTextBoxIncLong.Text = "";
+                    materialTextBoxIncFechaInicio.Text = "";
+                    materialTextBoxIncFechaFin.Text = "";
+                    materialComboBoxIncSource.SelectedIndex = 0;
+                    materialComboBoxIncSource.Refresh();
+                    materialButtonGestionarInc.Text = "Crear";
+                    materialButtonEliminarInc.Enabled = false;
+                    CargarListViewIncidencias();
+                    MostrarAviso("avisoIncModificada", 400);
+                }
+                else
+                {
+                    MessageBox.Show("Error al modificar la incidencia: " + response.ReasonPhrase);
+                }
+            }
+        }
+
+        private void buttonAbrirMapa_Click(object sender, EventArgs e)
+        {
+            Form mapaForm = new Form();
+            mapaForm.Text = "Seleccionar ubicación";
+            mapaForm.Size = new Size(800, 600);
+
+            GMap.NET.WindowsForms.GMapControl gmap = new GMap.NET.WindowsForms.GMapControl();
+            gmap.Dock = DockStyle.Fill;
+            gmap.MapProvider = GMap.NET.MapProviders.OpenStreetMapProvider.Instance;
+            gmap.Position = new GMap.NET.PointLatLng(40.416775, -3.703790); // Coordenadas de Madrid, España
+            gmap.MinZoom = 1;
+            gmap.MaxZoom = 20;
+            gmap.Zoom = 10;
+            gmap.MouseClick += (s, ev) =>
+            {
+                if (ev.Button == MouseButtons.Left)
+                {
+                    var point = gmap.FromLocalToLatLng(ev.X, ev.Y);
+                    materialTextBoxIncLat.Text = point.Lat.ToString();
+                    materialTextBoxIncLong.Text = point.Lng.ToString();
+                    mapaForm.Close();
+                }
+            };
+
+            mapaForm.Controls.Add(gmap);
+            mapaForm.ShowDialog();
         }
     }
 }
