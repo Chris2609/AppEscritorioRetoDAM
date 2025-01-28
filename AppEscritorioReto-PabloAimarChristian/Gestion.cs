@@ -68,42 +68,51 @@ namespace AppEscritorioReto_PabloAimarChristian
 
         private async void CrearUsuario()
         {
-            var usuario = new Usuario
+            if (materialTextBoxUsuario.Text.Contains("@"))
             {
-                Name = materialTextBoxUsuario.Text,
-                Password = materialTextBoxPassword.Text,
-                Admin = materialCheckboxAdmin.Checked
-            };
 
-            using (var client = new HttpClient())
-            {
-                var values = new Dictionary<string, string>
+                var usuario = new Usuario
+                {
+                    Name = materialTextBoxUsuario.Text,
+                    Password = materialTextBoxPassword.Text,
+                    Admin = materialCheckboxAdmin.Checked
+                };
+
+                using (var client = new HttpClient())
+                {
+                    var values = new Dictionary<string, string>
                 {
                     { "name", usuario.Name },
                     { "password", usuario.Password }
                 };
 
-                var content = new StringContent(JsonConvert.SerializeObject(values), System.Text.Encoding.UTF8, "application/json");
+                    var content = new StringContent(JsonConvert.SerializeObject(values), System.Text.Encoding.UTF8, "application/json");
 
-                var response = await client.PostAsync("http://10.10.13.246:8080/api/usuarios", content);
+                    var response = await client.PostAsync("http://10.10.13.246:8080/api/usuarios", content);
 
-                if (response.IsSuccessStatusCode)
-                {
-                    string responseText = await response.Content.ReadAsStringAsync();
-                    if (responseText.Trim('"') == "OK")
+                    if (response.IsSuccessStatusCode)
                     {
-                        EnvioCorreo(materialTextBoxUsuario.Text);
-                        materialTextBoxUsuario.Text = "";
-                        materialTextBoxPassword.Text = "";
-                        materialCheckboxAdmin.Checked = false;
-                        CargarListViewUsuarios();
-                        MostrarAviso("avisoUsuarioCreado", 300);
-                    }
-                    else if (responseText.Trim('"') == "NOT_FOUND")
-                    {
-                        labelUsuarioDuplicado.Text = "Este usuario ya existe";
+                        string responseText = await response.Content.ReadAsStringAsync();
+                        if (responseText.Trim('"') == "OK")
+                        {
+                            EnvioCorreo(materialTextBoxUsuario.Text);
+                            materialTextBoxUsuario.Text = "";
+                            materialTextBoxPassword.Text = "";
+                            materialCheckboxAdmin.Checked = false;
+                            CargarListViewUsuarios();
+                            MostrarAviso("avisoUsuarioCreado", 300);
+                        }
+                        else if (responseText.Trim('"') == "NOT_FOUND")
+                        {
+                            labelFormatoUsuario.Text = "";
+                            labelUsuarioDuplicado.Text = "Este usuario ya existe";
+                        }
                     }
                 }
+            }
+            else {
+                labelUsuarioDuplicado.Text = "";
+                labelFormatoUsuario.Text = "El formato del usuario no es correcto (ejemplo@dominio.com)";
             }
         }
 
@@ -250,7 +259,31 @@ namespace AppEscritorioReto_PabloAimarChristian
                 EnableSsl = true,
             };
 
-            smtpClient.Send("reto2dam3@gmail.com", destinatario, "Bienvenido a EuskoTrafico", "Su cuenta ha sido creada correctamente");
+            var fecha = DateTime.Now.ToString("dd/MM/yyyy");
+            var mensaje = $@"
+                <html>
+                <body>
+                    <h1>Bienvenido a EuskoTrafico</h1>
+                    <p>Su cuenta ha sido creada correctamente.</p>
+                    <p>Fecha de creación: {fecha}</p>
+                    <br>
+                    <p>Gracias por unirse a nosotros.</p>
+                    <br>
+                    <p>&copy; 2025 EuskoTrafico. Todos los derechos reservados.</p>
+                </body>
+                </html>";
+
+            var mailMessage = new MailMessage
+            {
+                From = new MailAddress("reto2dam3@gmail.com"),
+                Subject = "Bienvenido a EuskoTrafico",
+                Body = mensaje,
+                IsBodyHtml = true,
+            };
+
+            mailMessage.To.Add(destinatario);
+
+            smtpClient.Send(mailMessage);
         }
 
         private async void CargarListViewIncidencias()
@@ -522,22 +555,79 @@ namespace AppEscritorioReto_PabloAimarChristian
             GMap.NET.WindowsForms.GMapControl gmap = new GMap.NET.WindowsForms.GMapControl();
             gmap.Dock = DockStyle.Fill;
             gmap.MapProvider = GMap.NET.MapProviders.OpenStreetMapProvider.Instance;
-            gmap.Position = new GMap.NET.PointLatLng(40.416775, -3.703790); // Coordenadas de Madrid, España
+
+            double latitud = 43.2632062544531;
+            double longitud = -2.12860107421875;
+            if (!string.IsNullOrEmpty(materialTextBoxIncLat.Text) && !string.IsNullOrEmpty(materialTextBoxIncLong.Text))
+            {
+                latitud = double.Parse(materialTextBoxIncLat.Text.Replace(",", "."), System.Globalization.CultureInfo.InvariantCulture);
+                longitud = double.Parse(materialTextBoxIncLong.Text.Replace(",", "."), System.Globalization.CultureInfo.InvariantCulture);
+                //MessageBox.Show(latitud.ToString(System.Globalization.CultureInfo.InvariantCulture) + " y " + longitud.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            }
+
+            gmap.Position = new GMap.NET.PointLatLng(latitud, longitud);
             gmap.MinZoom = 1;
             gmap.MaxZoom = 20;
             gmap.Zoom = 10;
-            gmap.MouseClick += (s, ev) =>
+            gmap.CanDragMap = true;
+            gmap.DragButton = MouseButtons.Middle;
+            gmap.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+            gmap.IgnoreMarkerOnMouseWheel = true;
+
+            GMap.NET.WindowsForms.GMapOverlay markersOverlay = new GMap.NET.WindowsForms.GMapOverlay("markers");
+            gmap.Overlays.Add(markersOverlay);
+
+            GMap.NET.WindowsForms.GMapMarker marker = null;
+            if (!string.IsNullOrEmpty(materialTextBoxIncLat.Text) && !string.IsNullOrEmpty(materialTextBoxIncLong.Text))
+            {
+                marker = new GMap.NET.WindowsForms.Markers.GMarkerGoogle(new GMap.NET.PointLatLng(latitud, longitud), GMap.NET.WindowsForms.Markers.GMarkerGoogleType.red_dot);
+                gmap.Overlays[0].Markers.Add(marker);
+            }
+
+            gmap.MouseClick += async (s, ev) =>
             {
                 if (ev.Button == MouseButtons.Left)
                 {
                     var point = gmap.FromLocalToLatLng(ev.X, ev.Y);
-                    materialTextBoxIncLat.Text = point.Lat.ToString();
-                    materialTextBoxIncLong.Text = point.Lng.ToString();
-                    mapaForm.Close();
+                    if (marker != null)
+                    {
+                        gmap.Overlays[0].Markers.Remove(marker);
+                    }
+                    marker = new GMap.NET.WindowsForms.Markers.GMarkerGoogle(point, GMap.NET.WindowsForms.Markers.GMarkerGoogleType.red_dot);
+                    gmap.Overlays[0].Markers.Add(marker);
+
+                    var client = new HttpClient();
+                    client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3");
+                    client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                    client.DefaultRequestHeaders.Add("Referer", "https://nominatim.openstreetmap.org/");
+                    client.DefaultRequestHeaders.Add("Accept-Language", "es-ES,en;q=0.5");
+                    var response = await client.GetAsync($"https://nominatim.openstreetmap.org/reverse?format=json&lat={point.Lat.ToString().Replace(",", ".")}&lon={point.Lng.ToString().Replace(",", ".")}");
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var json = await response.Content.ReadAsStringAsync();
+                        dynamic locationData = JsonConvert.DeserializeObject(json);
+                        materialTextBoxIncReg.Text = locationData.address.state;
+                        materialTextBoxIncCiudad.Text = locationData.address.city ?? locationData.address.town ?? locationData.address.village;
+                        materialTextBoxIncProvincia.Text = locationData.address.province ?? locationData.address.state;
+                    }
                 }
             };
 
+            MaterialButton confirmButton = new MaterialButton();
+            confirmButton.Text = "Confirmar";
+            confirmButton.Dock = DockStyle.Bottom;
+            confirmButton.Click += (s, ev) =>
+            {
+                if (marker != null)
+                {
+                    materialTextBoxIncLat.Text = marker.Position.Lat.ToString();
+                    materialTextBoxIncLong.Text = marker.Position.Lng.ToString();
+                }
+                mapaForm.Close();
+            };
+
             mapaForm.Controls.Add(gmap);
+            mapaForm.Controls.Add(confirmButton);
             mapaForm.ShowDialog();
         }
     }

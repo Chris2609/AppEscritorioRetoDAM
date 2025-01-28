@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Gestion));
             this.materialTabControl1 = new MaterialSkin.Controls.MaterialTabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.labelFormatoUsuario = new System.Windows.Forms.Label();
             this.labelUsuarioDuplicado = new System.Windows.Forms.Label();
             this.avisoUsuarioEliminado = new AppEscritorioRetoDAM.UsuarioEliminado();
             this.avisoUsuarioModificado = new AppEscritorioRetoDAM.AvisoUsuarioModificado();
@@ -77,8 +78,8 @@
             this.columnEndDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnIncSourceId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.iconos = new System.Windows.Forms.ImageList(this.components);
-            this.buttomLogOut = new System.Windows.Forms.Button();
             this.loginComponente1 = new AppEscritorioRetoDAM.LoginComponente();
+            this.buttomLogOut = new System.Windows.Forms.Button();
             this.buttonAbrirMapa = new System.Windows.Forms.Button();
             this.materialTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -102,6 +103,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.labelFormatoUsuario);
             this.tabPage1.Controls.Add(this.labelUsuarioDuplicado);
             this.tabPage1.Controls.Add(this.avisoUsuarioEliminado);
             this.tabPage1.Controls.Add(this.avisoUsuarioModificado);
@@ -122,12 +124,22 @@
             this.tabPage1.Text = "Usuarios";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // labelFormatoUsuario
+            // 
+            this.labelFormatoUsuario.AutoSize = true;
+            this.labelFormatoUsuario.Font = new System.Drawing.Font("Yu Gothic UI", 10F);
+            this.labelFormatoUsuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.labelFormatoUsuario.Location = new System.Drawing.Point(347, 85);
+            this.labelFormatoUsuario.Name = "labelFormatoUsuario";
+            this.labelFormatoUsuario.Size = new System.Drawing.Size(0, 19);
+            this.labelFormatoUsuario.TabIndex = 14;
+            // 
             // labelUsuarioDuplicado
             // 
             this.labelUsuarioDuplicado.AutoSize = true;
             this.labelUsuarioDuplicado.Font = new System.Drawing.Font("Yu Gothic UI", 10F);
-            this.labelUsuarioDuplicado.ForeColor = System.Drawing.Color.Red;
-            this.labelUsuarioDuplicado.Location = new System.Drawing.Point(413, 85);
+            this.labelUsuarioDuplicado.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.labelUsuarioDuplicado.Location = new System.Drawing.Point(480, 85);
             this.labelUsuarioDuplicado.Name = "labelUsuarioDuplicado";
             this.labelUsuarioDuplicado.Size = new System.Drawing.Size(0, 19);
             this.labelUsuarioDuplicado.TabIndex = 13;
@@ -162,7 +174,7 @@
             this.materialTextBoxPassword.AnimateReadOnly = false;
             this.materialTextBoxPassword.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.materialTextBoxPassword.Depth = 0;
-            this.materialTextBoxPassword.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialTextBoxPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.materialTextBoxPassword.Hint = "Contraseña";
             this.materialTextBoxPassword.LeadingIcon = null;
             this.materialTextBoxPassword.Location = new System.Drawing.Point(442, 170);
@@ -866,6 +878,14 @@
             this.iconos.Images.SetKeyName(0, "iconoGestionarIncidencias.png");
             this.iconos.Images.SetKeyName(1, "iconoGestionUsuarios.png");
             // 
+            // loginComponente1
+            // 
+            this.loginComponente1.BackColor = System.Drawing.Color.Transparent;
+            this.loginComponente1.Location = new System.Drawing.Point(466, 13);
+            this.loginComponente1.Name = "loginComponente1";
+            this.loginComponente1.Size = new System.Drawing.Size(284, 50);
+            this.loginComponente1.TabIndex = 1;
+            // 
             // buttomLogOut
             // 
             this.buttomLogOut.BackColor = System.Drawing.Color.Transparent;
@@ -881,23 +901,15 @@
             this.buttomLogOut.UseVisualStyleBackColor = false;
             this.buttomLogOut.Click += new System.EventHandler(this.buttomLogOut_Click);
             // 
-            // loginComponente1
-            // 
-            this.loginComponente1.BackColor = System.Drawing.Color.Transparent;
-            this.loginComponente1.Location = new System.Drawing.Point(466, 13);
-            this.loginComponente1.Name = "loginComponente1";
-            this.loginComponente1.Size = new System.Drawing.Size(284, 50);
-            this.loginComponente1.TabIndex = 1;
-            // 
             // buttonAbrirMapa
             // 
-            this.buttonAbrirMapa.BackColor = System.Drawing.Color.Transparent;
-            this.buttonAbrirMapa.BackgroundImage = global::AppEscritorioReto_PabloAimarChristian.Properties.Resources.logoutIcono;
+            this.buttonAbrirMapa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.buttonAbrirMapa.BackgroundImage = global::AppEscritorioReto_PabloAimarChristian.Properties.Resources.iconoMapa;
             this.buttonAbrirMapa.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.buttonAbrirMapa.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonAbrirMapa.FlatAppearance.BorderSize = 0;
             this.buttonAbrirMapa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAbrirMapa.Location = new System.Drawing.Point(473, 297);
+            this.buttonAbrirMapa.Location = new System.Drawing.Point(339, 205);
             this.buttonAbrirMapa.Name = "buttonAbrirMapa";
             this.buttonAbrirMapa.Size = new System.Drawing.Size(40, 40);
             this.buttonAbrirMapa.TabIndex = 3;
@@ -980,5 +992,6 @@
         private AppEscritorioRetoDAM.AvisoIncEliminada avisoIncEliminada;
         private MaterialSkin.Controls.MaterialLabel materialLabelFormatoFecha;
         private System.Windows.Forms.Button buttonAbrirMapa;
+        private System.Windows.Forms.Label labelFormatoUsuario;
     }
 }
