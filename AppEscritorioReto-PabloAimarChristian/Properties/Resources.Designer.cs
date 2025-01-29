@@ -73,6 +73,16 @@ namespace AppEscritorioReto_PabloAimarChristian.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap iconoEstadisticas {
+            get {
+                object obj = ResourceManager.GetObject("iconoEstadisticas", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap iconoMapa {
             get {
                 object obj = ResourceManager.GetObject("iconoMapa", resourceCulture);

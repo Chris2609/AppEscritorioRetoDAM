@@ -48,6 +48,7 @@
             this.materialTextBoxUsuario = new MaterialSkin.Controls.MaterialTextBox2();
             this.materialButtonGestionUsuarios = new MaterialSkin.Controls.MaterialButton();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.buttonAbrirMapa = new System.Windows.Forms.Button();
             this.materialLabelFormatoFecha = new MaterialSkin.Controls.MaterialLabel();
             this.materialButtonEliminarInc = new MaterialSkin.Controls.MaterialButton();
             this.materialButtonGestionarInc = new MaterialSkin.Controls.MaterialButton();
@@ -80,7 +81,7 @@
             this.iconos = new System.Windows.Forms.ImageList(this.components);
             this.loginComponente1 = new AppEscritorioRetoDAM.LoginComponente();
             this.buttomLogOut = new System.Windows.Forms.Button();
-            this.buttonAbrirMapa = new System.Windows.Forms.Button();
+            this.buttonGenerarInforme = new System.Windows.Forms.Button();
             this.materialTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -174,7 +175,7 @@
             this.materialTextBoxPassword.AnimateReadOnly = false;
             this.materialTextBoxPassword.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.materialTextBoxPassword.Depth = 0;
-            this.materialTextBoxPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialTextBoxPassword.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.materialTextBoxPassword.Hint = "Contraseña";
             this.materialTextBoxPassword.LeadingIcon = null;
             this.materialTextBoxPassword.Location = new System.Drawing.Point(442, 170);
@@ -379,6 +380,21 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Incidencias";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // buttonAbrirMapa
+            // 
+            this.buttonAbrirMapa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.buttonAbrirMapa.BackgroundImage = global::AppEscritorioReto_PabloAimarChristian.Properties.Resources.iconoMapa;
+            this.buttonAbrirMapa.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonAbrirMapa.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonAbrirMapa.FlatAppearance.BorderSize = 0;
+            this.buttonAbrirMapa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAbrirMapa.Location = new System.Drawing.Point(339, 205);
+            this.buttonAbrirMapa.Name = "buttonAbrirMapa";
+            this.buttonAbrirMapa.Size = new System.Drawing.Size(40, 40);
+            this.buttonAbrirMapa.TabIndex = 3;
+            this.buttonAbrirMapa.UseVisualStyleBackColor = false;
+            this.buttonAbrirMapa.Click += new System.EventHandler(this.buttonAbrirMapa_Click);
             // 
             // materialLabelFormatoFecha
             // 
@@ -901,26 +917,27 @@
             this.buttomLogOut.UseVisualStyleBackColor = false;
             this.buttomLogOut.Click += new System.EventHandler(this.buttomLogOut_Click);
             // 
-            // buttonAbrirMapa
+            // buttonGenerarInforme
             // 
-            this.buttonAbrirMapa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.buttonAbrirMapa.BackgroundImage = global::AppEscritorioReto_PabloAimarChristian.Properties.Resources.iconoMapa;
-            this.buttonAbrirMapa.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonAbrirMapa.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonAbrirMapa.FlatAppearance.BorderSize = 0;
-            this.buttonAbrirMapa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAbrirMapa.Location = new System.Drawing.Point(339, 205);
-            this.buttonAbrirMapa.Name = "buttonAbrirMapa";
-            this.buttonAbrirMapa.Size = new System.Drawing.Size(40, 40);
-            this.buttonAbrirMapa.TabIndex = 3;
-            this.buttonAbrirMapa.UseVisualStyleBackColor = false;
-            this.buttonAbrirMapa.Click += new System.EventHandler(this.buttonAbrirMapa_Click);
+            this.buttonGenerarInforme.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(39)))), ((int)(((byte)(160)))));
+            this.buttonGenerarInforme.BackgroundImage = global::AppEscritorioReto_PabloAimarChristian.Properties.Resources.iconoEstadisticas;
+            this.buttonGenerarInforme.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonGenerarInforme.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonGenerarInforme.FlatAppearance.BorderSize = 0;
+            this.buttonGenerarInforme.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonGenerarInforme.Location = new System.Drawing.Point(147, 27);
+            this.buttonGenerarInforme.Name = "buttonGenerarInforme";
+            this.buttonGenerarInforme.Size = new System.Drawing.Size(41, 34);
+            this.buttonGenerarInforme.TabIndex = 17;
+            this.buttonGenerarInforme.UseVisualStyleBackColor = false;
+            this.buttonGenerarInforme.Click += new System.EventHandler(this.GenerarPDFConGraficos);
             // 
             // Gestion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonGenerarInforme);
             this.Controls.Add(this.buttomLogOut);
             this.Controls.Add(this.loginComponente1);
             this.Controls.Add(this.materialTabControl1);
@@ -993,5 +1010,6 @@
         private MaterialSkin.Controls.MaterialLabel materialLabelFormatoFecha;
         private System.Windows.Forms.Button buttonAbrirMapa;
         private System.Windows.Forms.Label labelFormatoUsuario;
+        private System.Windows.Forms.Button buttonGenerarInforme;
     }
 }

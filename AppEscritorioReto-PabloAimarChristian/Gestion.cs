@@ -14,6 +14,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
+using ScottPlot;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+using System.Web.UI.WebControls;
+using System.IO;
 
 namespace AppEscritorioReto_PabloAimarChristian
 {
@@ -99,6 +105,8 @@ namespace AppEscritorioReto_PabloAimarChristian
                             materialTextBoxUsuario.Text = "";
                             materialTextBoxPassword.Text = "";
                             materialCheckboxAdmin.Checked = false;
+                            labelFormatoUsuario.Text = "";
+                            labelUsuarioDuplicado.Text = "";
                             CargarListViewUsuarios();
                             MostrarAviso("avisoUsuarioCreado", 300);
                         }
@@ -110,7 +118,8 @@ namespace AppEscritorioReto_PabloAimarChristian
                     }
                 }
             }
-            else {
+            else
+            {
                 labelUsuarioDuplicado.Text = "";
                 labelFormatoUsuario.Text = "El formato del usuario no es correcto (ejemplo@dominio.com)";
             }
@@ -482,7 +491,8 @@ namespace AppEscritorioReto_PabloAimarChristian
             }
         }
 
-        private void ModificarIncidencia() {
+        private void ModificarIncidencia()
+        {
             var incidencia = new Incidencia
             {
                 Id = int.Parse(materialTextBoxIncId.Text),
@@ -629,6 +639,161 @@ namespace AppEscritorioReto_PabloAimarChristian
             mapaForm.Controls.Add(gmap);
             mapaForm.Controls.Add(confirmButton);
             mapaForm.ShowDialog();
+        }
+
+        private void GenerarPDFConGraficos(object sender, EventArgs e)
+        {
+            // Obtener datos del ListView
+            var incidencias = new List<Incidencia>();
+            foreach (ListViewItem item in materialListViewIncidencias.Items)
+            {
+                var incidencia = new Incidencia
+                {
+                    Id = int.Parse(item.SubItems[0].Text),
+                    AutonomousRegion = item.SubItems[1].Text,
+                    CityTown = item.SubItems[2].Text,
+                    Cause = item.SubItems[3].Text,
+                    IncidenceType = item.SubItems[4].Text,
+                    Province = item.SubItems[5].Text,
+                    Latitude = double.Parse(item.SubItems[6].Text),
+                    Longitude = double.Parse(item.SubItems[7].Text),
+                    StartDate = item.SubItems[8].Text,
+                    EndDate = item.SubItems[9].Text,
+                    SourceId = int.Parse(item.SubItems[10].Text)
+                };
+                incidencias.Add(incidencia);
+            }
+
+            // Crear gráficos con ScottPlot
+            string rutaGraficoBarras = GenerarGraficoBarras(incidencias);
+            string rutaGraficoPastel = GenerarGraficoPastel(incidencias);
+            string rutaGraficoDuracion = GenerarGraficoDuracion(incidencias);
+
+            // Crear el PDF con iTextSharp
+            string rutaDocumentos = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string rutaPDF = Path.Combine(rutaDocumentos, "Reporte_Incidencias.pdf");
+            using (var document = new Document())
+            {
+                PdfWriter.GetInstance(document, new FileStream(rutaPDF, FileMode.Create));
+                document.Open();
+
+                // Añadir título
+                var titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16);
+                document.Add(new Paragraph("Reporte de Incidencias", titleFont));
+                document.Add(new Paragraph($"Fecha de Generación: {DateTime.Now:dd/MM/yyyy}\n\n"));
+
+                // Añadir primer gráfico (Barras)
+                document.Add(new Paragraph("Gráfico 1: Incidencias por Ciudad/Pueblo\n", titleFont));
+                var imagenGraficoBarras = iTextSharp.text.Image.GetInstance(rutaGraficoBarras);
+                imagenGraficoBarras.ScaleToFit(500, 300);
+                document.Add(imagenGraficoBarras);
+                document.Add(new Paragraph("\n"));
+
+                // Añadir segundo gráfico (Pastel)
+                document.Add(new Paragraph("Gráfico 2: Incidencias por Región Autónoma\n", titleFont));
+                var imagenGraficoPastel = iTextSharp.text.Image.GetInstance(rutaGraficoPastel);
+                imagenGraficoPastel.ScaleToFit(500, 300);
+                document.Add(imagenGraficoPastel);
+                document.Add(new Paragraph("\n"));
+
+                // Añadir tercer gráfico (Duración de incidencias)
+                document.Add(new Paragraph("Gráfico 3: Duración de Incidencias\n", titleFont));
+                var imagenGraficoDuracion = iTextSharp.text.Image.GetInstance(rutaGraficoDuracion);
+                imagenGraficoDuracion.ScaleToFit(500, 300);
+                document.Add(imagenGraficoDuracion);
+
+                document.Close();
+            }
+
+            // Mostrar la ruta en la que se ha guardado
+            MessageBox.Show("El archivo se ha guardado en: " + rutaPDF);
+        }
+
+        private string GenerarGraficoBarras(List<Incidencia> incidencias)
+        {
+            // Agrupar por ciudad/pueblo
+            var grouped = incidencias.GroupBy(i => i.CityTown)
+                                     .Select(g => new { City = g.Key, Count = g.Count() })
+                                     .ToList();
+
+            double[] values = grouped.Select(g => (double)g.Count).ToArray();
+            string[] labels = grouped.Select(g => g.City).ToArray();
+
+            // Crear el gráfico
+            var plt = new ScottPlot.Plot(600, 400);
+            plt.AddBar(values);
+            plt.XTicks(labels);
+            plt.Title("Incidencias por Ciudad/Pueblo");
+            plt.YLabel("Cantidad");
+
+            // Guardar como imagen
+            string ruta = "Grafico_Barras.png";
+            plt.SaveFig(ruta);
+            return ruta;
+        }
+
+        private string GenerarGraficoPastel(List<Incidencia> incidencias)
+        {
+            // Agrupar por región autónoma
+            var grouped = incidencias.GroupBy(i => i.AutonomousRegion)
+                                     .Select(g => new { Region = g.Key, Count = g.Count() })
+                                     .ToList();
+
+            double[] values = grouped.Select(g => (double)g.Count).ToArray();
+            string[] labels = grouped.Select(g => g.Region).ToArray();
+
+            // Crear el gráfico
+            var plt = new ScottPlot.Plot(600, 400);
+            var pie = plt.AddPie(values);
+            pie.SliceLabels = labels;
+            pie.ShowPercentages = true;
+
+            // Agregar leyenda
+            plt.Legend(location: ScottPlot.Alignment.UpperLeft);
+            plt.Title("Incidencias por Región Autónoma");
+
+            // Guardar como imagen
+            string ruta = "Grafico_Pastel.png";
+            plt.SaveFig(ruta);
+            return ruta;
+        }
+
+        private string GenerarGraficoDuracion(List<Incidencia> incidencias)
+        {
+            // Convertir las fechas de inicio y fin a DateTime y calcular duración
+            var durations = incidencias.Select(i => new
+            {
+                Id = i.Id,
+                StartDate = DateTime.Parse(i.StartDate),
+                EndDate = DateTime.Parse(i.EndDate),
+                Duration = (DateTime.Parse(i.EndDate) - DateTime.Parse(i.StartDate)).Days
+            }).ToList();
+
+            // Ordenar por fecha de inicio
+            durations = durations.OrderBy(d => d.StartDate).ToList();
+
+            // Valores de duración
+            double[] values = durations.Select(d => (double)d.Duration).ToArray();
+
+            // Etiquetas combinadas: "ID \n FechaInicio → FechaFin"
+            string[] labels = durations.Select(d => $"ID {d.Id}\n{d.StartDate:yyyy-MM-dd} → {d.EndDate:yyyy-MM-dd}").ToArray();
+
+            // Crear el gráfico
+            var plt = new ScottPlot.Plot(800, 500);
+
+            // Añadir barras horizontales
+            var bar = plt.AddBar(values);
+            bar.Orientation = ScottPlot.Orientation.Horizontal;
+
+            // Configurar eje Y con etiquetas de ID + Fechas
+            plt.YTicks(labels);
+            plt.Title("Duración de Incidencias");
+            plt.XLabel("Duración (días)");
+
+            // Guardar como imagen
+            string ruta = "Grafico_Duracion.png";
+            plt.SaveFig(ruta);
+            return ruta;
         }
     }
 }
